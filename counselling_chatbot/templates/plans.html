@@ -1,0 +1,456 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+    {% load static %} 
+
+<!-- Mirrored from html.storebuild.shop/sycho-prv/sycho/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Mar 2025 11:12:02 GMT -->
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Counselling Chatbot</title>
+
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontpanel/assets/img/favicon.jpg' %}">        
+		<!-- CSS here -->
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/preloader.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/slick.css' %}">        
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/metisMenu.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/jquery.fancybox.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/default.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/style.css' %}">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->  
+
+        <!-- pre loader area start -->
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_one"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_three"></div>
+                </div>
+            </div> 
+        </div>
+        <!-- pre loader area end -->
+
+         <!-- header area start -->
+         <header>
+            <div class="header-area">
+              <div class="header__top box-105">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-6 col-lg-6 col-md-4 col-sm-6 d-none d-sm-block">
+                                 <div class="header__top-left">
+                                     {% comment %}<div class="social">
+                                         <ul>
+                                             <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                             <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                         </ul>
+                                     </div> {% endcomment %}
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-8 col-sm-6 col-12">
+                                <div class="header__top-right d-flex justify-content-end">
+                                     <div class="header__info d-none d-md-flex">
+                                      {% comment %}<div class="header__info-icon">
+                                            <span class="icon flaticon-24-hours-support"></span>
+                                        </div>
+                                        <div class="header__info-text">
+                                            <span>Call us:</span>
+                                            <span>(202) 588-6500</span>
+                                        </div>
+                                  </div>
+                                    <div class="header__info d-none d-sm-flex">
+                                      <div class="header__info-icon">
+                                            <span class="icon flaticon-envelope"></span>
+                                        </div>
+                                        <div class="header__info-text">
+                                            <span>e-mail:</span>
+                                            <span>info@sycho24.com</span>
+                                        </div>
+                                  </div> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div id="header-sticky" class="header__bottom box-105">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-8">
+                                <div class="logo-2 text-md-center">
+                                    <a href="index-2.html"><img src="{% static 'frontpanel/assets/img/logo/logo.png' %}" alt="logo"></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-4">
+                                <div class="header__bottom-right pink-soft-bg d-flex justify-content-end justify-content-lg-between align-items-center">
+                                    <div class="main-menu main-menu-2 d-none d-lg-block">
+                                        <nav>
+                                            <ul>
+                                                <li><a href="{% url 'homePage' %}">home</a></li>
+                                                <li><a href="{% url 'plansPage' %}">View Plans</a> </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="header-bar info-toggle-btn d-lg-none f-right">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="header__btn d-none d-xl-block">
+                                        <a href="{% url 'registerPage' %}" class="s-btn s-btn__square">Sign up</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header area ends-->
+        
+                <!-- side-mobile-menu start -->
+                <nav class="side-mobile-menu side-mobile-menu-3">
+                    <div class="info__close-icon text-end mb-20">
+                        <button class="info-close-btn"><i class="fal fa-times"></i></button>
+                    </div>
+                    <ul id="mobile-menu-active">
+                        <li class="has-dropdown"><a href="index.html">home</a>
+                            <ul class="submenu">
+                                <li><a href="index.html">home style one</a></li>
+                                <li><a href="index-2.html">home style two</a></li>
+                                <li><a href="index-3.html">home style three</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="about-us.html">about</a>
+                            <ul class="submenu">
+                                <li><a href="about-us.html">about us</a></li>
+                                <li><a href="about-me.html">about me</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"> <a href="services.html">services</a>
+                            <ul class="submenu">
+                                <li><a href="services.html">services</a></li>
+                                <li><a href="services-details.html">service details</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="case.html">cases</a>
+                            <ul class="submenu">
+                                <li><a href="case.html">case </a></li>
+                                <li><a href="case-details.html">case details</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="#">pages</a>
+                            <ul class="submenu">
+                                <li><a href="team.html">our team</a></li>
+                                <li><a href="team-details.html">team details</a></li>
+                                <li><a href="events.html">events and offers</a></li>
+                                <li><a href="appointment.html">appointment</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="blog.html">blog</a>
+                            <ul class="submenu">
+                                <li><a href="blog.html">blog </a></li>
+                                <li><a href="blog-left-sidebar.html">blog Left Sidebar</a></li>
+                                <li><a href="blog-no-sidebar.html">blog no sidebar</a></li>
+                                <li><a href="blog-2-col.html">blog 2 column</a></li>
+                                <li><a href="blog-2-col-mas.html">blog 2 col masonary</a></li>
+                                <li><a href="blog-3-col.html">blog 3 column</a></li>
+                                <li><a href="blog-3-col-mas.html">blog 3 col mas</a></li>
+                                <li><a href="blog-details.html">blog details</a></li>
+                                <li><a href="blog-details-left.html">details left sidebar</a></li>
+                                <li><a href="blog-details-video.html">details video</a></li>
+                                <li><a href="blog-details-audio.html">details audio</a></li>
+                                <li><a href="blog-details-gallery.html">details gallery</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html">contact</a></li>
+                    </ul>
+                </nav>
+                <!-- side-mobile-menu end -->
+            </div>
+        </section>
+        <div class="body-overlay transition-3"></div>
+        <!-- info area end -->
+
+        <!-- scroll up area start -->
+        <div class="scroll-up" id="scroll" style="display: none;">
+            <a href="javascript:void(0);"><i class="far fa-angle-up"></i></a>
+        </div>
+        <!-- scroll up area end -->
+
+        <main>
+
+            <!-- page title area start -->
+            <section class="page__title p-relative pt-200 pb-200" data-background="{% static 'frontpanel/assets/img/page-title/page-title-3.jpg' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="page__title-inner text-center">
+                                <div class="page__title-breadcrumb">                                 
+                                        <!-- <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="team.html">Team</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Donnie</li>
+                                        </ol>
+                                        </nav> -->
+                                </div>
+                                <h2>There is hope, even when your brain tells you there isn't</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- page title area end -->
+            
+            
+           <!-- team area start -->
+           <section class="team__area pb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                        <div class="section__title mb-65 text-center">
+                            <div class="section__icon mb-10">
+                                <span class="section__sub-title section__sub-title-2">affordable Services</span>
+                            </div>
+                            <h1 class="mb-100">Our Psychology Therapy Plans Choose the Best One</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="team__item mb-30">
+                            <div class="team__thumb w-img fix p-relative">
+                             <!--  <img class="transition-3" src="{% static 'frontpanel/assets/img/team/team-1.jpg' %}" alt="Free Plan">
+                              -->   
+                             {% comment %} <div class="team__social social pink-soft-bg p-absolute transition-3">
+                                    <ul>
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>{% endcomment %}
+                            </div> 
+                            <div class="team__content text-center white-bg transition-3">
+                                <div class="team__name">
+                                    <h1>$0</h1>
+                                    <span>Free Plan</span>
+                                </div>
+                                <div class="team__info">
+                                    <p>✔ Five free chats</p>
+                                    <p>✔ Regular model updates</p>
+                                    <p>✔ Standard response speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="team__item mb-30">
+                            <div class="team__thumb w-img fix p-relative">
+                          <!--      <img class="transition-3" src="{% static 'frontpanel/assets/img/team/team-2.jpg' %}" alt="team-1">
+                            -->  </div>
+                            <div class="team__content text-center white-bg transition-3">
+                                <div class="team__name">
+                                    <h1>$33</h1>
+                                    <span>Basic Plan</span>
+                                </div>
+                                <div class="team__info">
+                                    <p>✔ 100 Chats</p>
+                                    <p>✔ Always Available</p>
+                                    <p>✔ Early model updates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="team__item mb-30">
+                            <div class="team__thumb w-img fix p-relative">
+                             <!--   <img class="transition-3" src="{% static 'frontpanel/assets/img/team/team-3.jpg' %}" alt="team-1">
+                            --></div>
+                            <div class="team__content text-center white-bg transition-3">
+                                <div class="team__name">
+                                    <h1>$50</h1>
+                                    <span>Basic Plan</span>
+                                </div>
+                                <div class="team__info">
+                                    <p>✔ 200 Chats</p>
+                                    <p>✔ Chat in hindi</p>
+                                    <p>✔ Fast response speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- team area end -->
+            <!-- team details area end -->
+
+        </main>
+
+        <!-- footer area start -->
+        <footer>
+            <div class="footer__area pt-130 footer-bg box-105">
+                <div class="container-fluid">
+                    <div class="footer__bottom pb-50">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-6 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-30">
+                                        <div class="logo">
+                                            <a href="index.html"><img src="{% static 'frontpanel/assets/img/logo/logo.png' %}" alt="logo"></a>
+                                        </div>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__logo-area">
+                                            <p>Waters divided said aims kind seicond winged form it tree after female the deep at itself creepeth land bring place day sea dont caus may thing open who their midst to seas</p>
+        
+                                            <div class="social">
+                                                <h4>Follow us</h4>
+                                                <ul>
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-6 col-md-6 offset-xl-1 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-25">
+                                        <h2>Services</h2>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__services">
+                                            <ul>
+                                                <li><a href="services-details.html">Business Frustation</a></li>
+                                                <li><a href="services-details.html">Anxiety Dosorder</a></li>
+                                                <li><a href="services-details.html">Personal Meeting</a></li>
+                                                <li><a href="services-details.html">Couple Therapy</a></li>
+                                                <li><a href="services-details.html">Family Counselling</a></li>
+                                                <li><a href="services-details.html">Dating & Relation</a></li>
+                                                <li><a href="services-details.html">Depression Problem</a></li>
+                                                <li><a href="services-details.html">Mental Problem</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-6 col-md-6 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-25">
+                                        <h2>Contact Info</h2>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__contact-info">
+                                            <ul>
+                                                <li>
+                                                    <div class="footer__contact-address">
+                                                        <span>House no 35, Palmall street, London, England</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="footer__contact-item">
+                                                        <h6>Email:</h6>
+                                                        <p>info@basictheme.com</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="footer__contact-item">
+                                                        <h6>Support:</h6>
+                                                        <p>+1 325 562 3265</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="footer__contact-item">
+                                                        <h6>Website:</h6>
+                                                        <p>www.basictheme.com</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-6 offset-xl-1 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-25">
+                                        <h2>Stay in Touch</h2>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__subscribe">
+                                            <p>Fruitful and herb the seasons of fish saying likeness face beast cattle.</p>
+                                            <div class="footer__subscribe-form footer__subscribe-form-2">
+                                                <form action="#">
+                                                    <input type="email" placeholder="Email Address">
+                                                    <button class="s-btn s-btn__square-2" type="submit"><i class="fal fa-paper-plane"></i> subscribe now</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer__copyright">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="footer__copyright-text">
+                                    <p>Copyright © 2025 <a href="https://themeforest.net/user/theme_pure/portfolio" target="_blank"> ThemePure</a>. All Rights Reserved.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="footer__policy ">
+                                    <a href="#">Terms & Condition</a>
+                                    <a href="#"> Privacy</a>
+                                    <a href="#">Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer area end -->
+
+
+		<!-- JS here -->
+        <script src="{% static 'frontpanel/assets/js/vendor/jquery.js'  %}"></script>
+        <script src="{% static 'frontpanel/assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/waypoint.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/metisMenu.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/slick.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/jquery.fancybox.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/ajax-form.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/imagesloaded.pkgd.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/jquery.counterup.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/main.js' %}"></script>
+    </body>
+
+<!-- Mirrored from html.storebuild.shop/sycho-prv/sycho/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Mar 2025 11:12:07 GMT -->
+</html> 

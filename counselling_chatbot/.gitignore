@@ -1,0 +1,37 @@
+# Ignore virtual environment
+# Virtual environment
+venv/
+.venv/
+ENV/
+
+# Python cache
+__pycache__/
+
+# Django migrations (ignore all except __init__.py)
+*/migrations/
+!*/migrations/__init__.py
+
+# Environment config
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and database
+*.log
+*.sqlite3
+
+# Large binary files
+*.dll
+*.lib
+*.faiss
+
+# Ignore local settings
+local_settings.py
+ 
+# Ignore media folder
+media/
+
+# custom model
+counselling_chatbot/dashboardapp/chatbot_rag/*.gguf
