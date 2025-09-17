@@ -30,7 +30,7 @@ def chatFun(request):
         "remaining_word_token": subscription.counselling_chatbot_subscription_remaining_word_token if subscription else 0,
         "plan_name": plan_name,
     }
-    print("📝 PLAN NAME:", plan_name)
+    print("📝 plan name:", plan_name)
 
     return render(request, "chat.html", context)
 
