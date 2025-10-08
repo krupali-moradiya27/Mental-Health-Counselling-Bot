@@ -1,0 +1,642 @@
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+    {% load static %} 
+
+<!-- Mirrored from html.storebuild.shop/sycho-prv/sycho/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Mar 2025 11:12:02 GMT -->
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Counselling Chatbot</title>
+
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontpanel/assets/img/favicon.jpg' %}">        
+		<!-- CSS here -->
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/preloader.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/slick.css' %}">        
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/metisMenu.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/jquery.fancybox.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/default.css' %}">
+        <link rel="stylesheet" href="{% static 'frontpanel/assets/css/style.css' %}">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->  
+
+        <!-- pre loader area start -->
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_one"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_three"></div>
+                </div>
+            </div> 
+        </div> 
+        <!-- pre loader area end -->
+
+        <!-- header area start -->
+        <header>
+            <div class="header-area">
+              <div class="header__top box-105">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-6 col-lg-6 col-md-4 col-sm-6 d-none d-sm-block">
+                                 <div class="header__top-left">
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-8 col-sm-6 col-12">
+                                <div class="header__top-right d-flex justify-content-end">
+                                     <div class="header__info d-none d-md-flex">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div id="header-sticky" class="header__bottom box-105">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-8">
+                                <div class="logo-2 text-md-center">
+                                    <a href="index-2.html"><img src="{% static 'frontpanel/assets/img/logo/logo.png' %}" alt="logo"></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-4">
+                                <div class="header__bottom-right pink-soft-bg d-flex justify-content-end justify-content-lg-between align-items-center">
+                                    <div class="main-menu main-menu-2 d-none d-lg-block">
+                                        <nav>
+                                            <ul>
+                                                <li><a href="{% url 'homePage' %}">home</a></li>
+                                                <li><a href="{% url 'plansPage' %}">View Plans</a> </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="header-bar info-toggle-btn d-lg-none f-right">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="header__btn d-none d-xl-block">
+                                        <a href="{% url 'registerPage' %}" class="s-btn s-btn__square">Sign up</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header area start -->
+
+         <!-- scroll up area start -->
+        <div class="scroll-up" id="scroll" style="display: none;">
+            <a href="javascript:void(0);"><i class="far fa-angle-up"></i></a>
+        </div>
+        <!-- scroll up area end -->
+        
+        <main>
+
+            <!-- slider area start -->
+            <div class="slider-area p-relative">
+                <div class="slider-arrow p-absolute bounce smooth-scroll">
+                    <a href="#appointment__area-2" class="slider-arrow-btn"><i class="fal fa-long-arrow-down"></i></a>
+                </div>
+                <div class="slider-active slider-active-2">
+                    <div class="single-slider slider-height-2 slider-overlay p-relative slider-height d-flex align-items-center" data-background="{% static 'frontpanel/assets/img/slider/02/slider-1.jpg' %}">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-xl-9">
+                                    <div class="slider-content slider-content-2">
+                                        <span data-animation="fadeInUp" data-delay=".2s">Every depression solution</span>
+                                        <h2 data-animation="fadeInUp" data-delay=".4s">Best Psychologist Makes Excellent </h2>
+                                        <p data-animation="fadeInUp" data-delay=".6s">Mental illness is not contagious you won’t catch it by being kind</p>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-slider slider-height-2 slider-overlay p-relative slider-height d-flex align-items-center" data-background="{% static 'frontpanel/assets/img/slider/02/slider-2.jpg' %}">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-xl-9">
+                                    <div class="slider-content slider-content-2">
+                                        <span data-animation="fadeInUp" data-delay=".2s">Every depression solution</span>
+                                        <h2 data-animation="fadeInUp" data-delay=".4s">Best Psychologist Makes Excellent </h2>
+                                        <p data-animation="fadeInUp" data-delay=".6s">Mental illness is not contagious you won’t catch it by being kind</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-slider slider-height-2 slider-overlay p-relative slider-height d-flex align-items-center" data-background="{% static 'frontpanel/assets/img/slider/02/slider-3.jpg' %}">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-xl-9">
+                                    <div class="slider-content slider-content-2">
+                                        <span data-animation="fadeInUp" data-delay=".2s">Every depression solution</span>
+                                        <h2 data-animation="fadeInUp" data-delay=".4s">Best Psychologist Makes Excellent </h2>
+                                        <p data-animation="fadeInUp" data-delay=".6s">Mental illness is not contagious you won’t catch it by being kind</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slider area end -->
+
+            <!-- about area start -->
+            <section class="about__area-2 mt-100 mb-210 box-105 p-relative">
+                <div class="container-fluid">
+                    <div class="about__inner p-relative">
+                        <div class="about__bg-img p-absolute" data-background="{% static 'frontpanel/assets/img/about/about-2.jpg' %}"></div>
+                        <div class="row">
+                            <div class="col-xl-6 offset-xl-6">
+                                <div class="about__content-wrapper about__content-wrapper-2 pt-20 pl-85">
+                                    <div class="section__title mb-30">
+                                        <div class="section__icon mb-10">
+                                            <span class="section__sub-title section__sub-title-2">welcome to sycho</span>
+                                        </div>
+                                        <h1 class="mb-100">Patients are Happy, Cause Proper Mental Cure Support</h1>
+                                    </div>
+                                    <div class="about__info-2 d-sm-flex mb-60">   
+                                        <p>Our website provides a secure and interactive platform for users to share their mental health concerns with a virtual mentalist and psychiatrist counseling chatbot. Users can track their mood, discuss health-related issues, and receive personalized mental health support. With secure authentication, chat history storage, and sentiment analysis, the chatbot ensures a safe and customized experience. Premium users can access additional features, including a subscription-based model and multilingual support in Hindi and English. Our goal is to offer a confidential and user-friendly space where individuals can find guidance, emotional support, and mental well-being resources. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- about area start -->
+             <!-- team area start -->
+           <section class="team__area pb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                        <div class="section__title mb-65 text-center">
+                            <div class="section__icon mb-10">
+                                <span class="section__sub-title section__sub-title-2">affordable Services</span>
+                            </div>
+                            <h1 class="mb-100">Our Psychology Therapy Plans Choose the Best One</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="team__item mb-30">
+                            <div class="team__thumb w-img fix p-relative">
+
+                            </div> 
+                            <div class="team__content text-center white-bg transition-3">
+                                <div class="team__name">
+                                    <h1>$0</h1>
+                                    <span>Free Plan</span>
+                                </div>
+                                <div class="team__info">
+                                    <p>✔ Five free chats</p>
+                                    <p>✔ Regular model updates</p>
+                                    <p>✔ Standard response speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="team__item mb-30">
+                            <div class="team__thumb w-img fix p-relative">
+                          <!--      <img class="transition-3" src="{% static 'frontpanel/assets/img/team/team-2.jpg' %}" alt="team-1">
+                            -->  </div>
+                            <div class="team__content text-center white-bg transition-3">
+                                <div class="team__name">
+                                    <h1>$33</h1>
+                                    <span>Basic Plan</span>
+                                </div>
+                                <div class="team__info">
+                                    <p>✔ 100 Chats</p>
+                                    <p>✔ Always Available</p>
+                                    <p>✔ Early model updates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="team__item mb-30">
+                            <div class="team__thumb w-img fix p-relative">
+                             <!--   <img class="transition-3" src="{% static 'frontpanel/assets/img/team/team-3.jpg' %}" alt="team-1">
+                            --></div>
+                            <div class="team__content text-center white-bg transition-3">
+                                <div class="team__name">
+                                    <h1>$50</h1>
+                                    <span>Basic Plan</span>
+                                </div>
+                                <div class="team__info">
+                                    <p>✔ 200 Chats</p>
+                                    <p>✔ Chat in hindi</p>
+                                    <p>✔ Fast response speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- team area end -->
+            
+
+        <!-- why area start -->
+            <section class="why__area p-relative grey-bg-3 box-105 pt-110 pb-40">
+                <div class="why__bg p-absolute" data-background="{% static 'frontpanel/assets/img/why/why-img.jpg' %}"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="why__wrapper">
+                                <div class="section__title mb-30 pr-50">
+                                    <div class="section__icon mb-10">
+                                        <span class="section__sub-title section__sub-title-2">Why Choose us</span>
+                                    </div>
+                                    <h1 class="mb-100">Mental illness Cannot Measurement your Actual Importance </h1>
+                                </div>
+                                
+                                <div class="why__list pr-35">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="why__item d-flex pr-40 mb-70">
+                                                <div class="why__icon mr-30">
+                                                    <span class="icon flaticon-happy"></span>
+                                                </div>
+                                                <div class="why__text">
+                                                    <h3>Satisfied Patient Services</h3>
+                                                    <p>Dui Tristique pretium tempor odio ante commodo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="why__item d-flex pr-40 mb-70">
+                                                <div class="why__icon mr-30">
+                                                    <span class="icon flaticon-24-hours-support"></span>
+                                                </div>
+                                                <div class="why__text">
+                                                    <h3>Support Customer Manager</h3>
+                                                    <p>Dui Tristique pretium tempor odio ante commodo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="why__item d-flex pr-40 mb-70">
+                                                <div class="why__icon mr-30">
+                                                    <span class="icon flaticon-psychologist"></span>
+                                                </div>
+                                                <div class="why__text">
+                                                    <h3>Dedicated & Expert Doctors</h3>
+                                                    <p>Dui Tristique pretium tempor odio ante commodo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="why__item d-flex pr-40 mb-70">
+                                                <div class="why__icon mr-30">
+                                                    <span class="icon flaticon-happy"></span>
+                                                </div>
+                                                <div class="why__text">
+                                                    <h3>Regularly Patients inspection</h3>
+                                                    <p>Dui Tristique pretium tempor odio ante commodo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- why area end -->
+             
+            <!-- faq area start -->
+            <section class="faq__area p-relative box-105 pink-soft-bg pt-110 pb-120">
+                <div class="faq__bg p-absolute" data-background="{% static 'frontpanel/assets/img/faq/faq-img.jpg' %}"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-12">
+                            <div class="faq__wrapper pr-140">
+                                <div class="section__title mb-20">
+                                    <div class="section__icon mb-10">
+                                        <span class="section__sub-title section__sub-title-2">ASk Question</span>
+                                    </div>
+                                    <h1 class="mb-100">Company Information & Any Question About us</h1>
+                                </div>
+                                <div class="faq__inner mr-30">
+                                    <div id="accordion">
+                                        <div class="card">
+                                          <div class="card-header white-bg" id="headingOne">
+                                            <h5 class="mb-0">
+                                              <button class="faq-accordion-btn collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                What do you do differently from other people? 
+                                              </button>
+                                            </h5>
+                                          </div>
+                                      
+                                          <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                Porttitor porta ultrices platea iaculis malesuada congue posuere sad ad nulla viverra nunc facilisis convallis platea lacnia commodo pretium for an pliatea cubilia vivamus fermentum pharetra conubia
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="card">
+                                          <div class="card-header white-bg" id="headingTwo">
+                                            <h5 class="mb-0">
+                                              <button class="faq-accordion-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                How does anger manifest itself in your body?
+                                              </button>
+                                            </h5>
+                                          </div>
+                                          <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+                                                Porttitor porta ultrices platea iaculis malesuada congue posuere sad ad nulla viverra nunc facilisis convallis platea lacnia commodo pretium for an pliatea cubilia vivamus fermentum pharetra conubia
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="card">
+                                          <div class="card-header white-bg" id="headingThree">
+                                            <h5 class="mb-0">
+                                              <button class="faq-accordion-btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                What the worst thing you’ve ever been though?
+                                              </button>
+                                            </h5>
+                                          </div>
+                                          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body">
+                                                Porttitor porta ultrices platea iaculis malesuada congue posuere sad ad nulla viverra nunc facilisis convallis platea lacnia commodo pretium for an pliatea cubilia vivamus fermentum pharetra conubia
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="card">
+                                          <div class="card-header white-bg" id="headingFour">
+                                            <h5 class="mb-0">
+                                              <button class="faq-accordion-btn collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                Do you think you need to know the feel secure?
+                                              </button>
+                                            </h5>
+                                          </div>
+                                          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                                            <div class="card-body">
+                                                Porttitor porta ultrices platea iaculis malesuada congue posuere sad ad nulla viverra nunc facilisis convallis platea lacnia commodo pretium for an pliatea cubilia vivamus fermentum pharetra conubia
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- faq area end -->
+
+            <!-- blog area start -->
+            <section class="blog__area box-105 pt-110 pb-85">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 offset-xl-2">
+                            <div class="section__title mb-70 text-center pl-50 pr-50">
+                                <div class="section__icon mb-10">
+                                    <span class="section__sub-title section__sub-title-2">popular articles</span>
+                                </div>
+                                <h1>Every Single Update And Recent Story From Our Blog</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="blog__item mb-30">
+                                <div class="blog__thumb-2 w-img fix">
+                                    <img src="{% static 'frontpanel/assets/img/blog/02/blog-01.jpg' %}" alt="">
+                                </div>
+                                <div class="blog__content blog__content-2 white-bg p-relative">
+                                    <div class="blog__meta blog__meta-2 fix mb-10">
+                                        <span class="f-left publisher">By <a href="#">admin</a></span>
+                                        <span class="f-left date"><a href="#">/ august 19, 2020</a></span>
+                                    </div>
+                                    <h3><a href="blog-details.html">Suscipit litora at morbi phare igula felis sem port</a></h3>
+                                    <div class="blog__meta blog__meta-2">
+                                        <span><a href="#"><i class="fas fa-tags"></i>Couple Problem</a></span>
+                                        <span><a href="#"><i class="far fa-comments"></i>2 Comment</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="blog__item mb-30">
+                                <div class="blog__thumb-2 w-img fix">
+                                    <img src="{% static 'frontpanel/assets/img/blog/02/blog-02.jpg' %}" alt="">
+                                </div>
+                                <div class="blog__content blog__content-2 white-bg p-relative">
+                                    <div class="blog__meta blog__meta-2 fix mb-10">
+                                        <span class="f-left publisher">By <a href="#">admin</a></span>
+                                        <span class="f-left date"><a href="#">/ august 19, 2020</a></span>
+                                    </div>
+                                    <h3><a href="blog-details.html">Fames quam parturient inter tempor facilis aenean</a></h3>
+                                    <div class="blog__meta blog__meta-2">
+                                        <span><a href="#"><i class="fas fa-tags"></i>Couple Problem</a></span>
+                                        <span><a href="#"><i class="far fa-comments"></i>2 Comment</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="blog__item mb-30">
+                                <div class="blog__content blog__content-2 blog__sm pink-soft-bg p-relative">
+                                    <div class="blog__meta blog__meta-2 fix mb-10">
+                                        <span class="f-left publisher">By <a href="#">admin</a></span>
+                                        <span class="f-left date"><a href="#">/ august 19, 2020</a></span>
+                                    </div>
+                                    <h3><a href="blog-details.html">Fames quam parturient inter tempor facilis aenean</a></h3>
+                                    <div class="blog__meta blog__meta-2">
+                                        <span><a href="#"><i class="fas fa-tags"></i>Personal</a></span>
+                                        <span><a href="#"><i class="far fa-comments"></i>10 Comment</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog__item mb-30">
+                                <div class="blog__content blog__content-2 blog__sm pink-soft-bg p-relative">
+                                    <div class="blog__meta blog__meta-2 fix mb-10">
+                                        <span class="f-left publisher">By <a href="#">admin</a></span>
+                                        <span class="f-left date"><a href="#">/ august 19, 2020</a></span>
+                                    </div>
+                                    <h3><a href="#">Praesent maurise male suada purus hendrer team</a></h3>
+                                    <div class="blog__meta blog__meta-2">
+                                        <span><a href="#"><i class="fas fa-tags"></i>Mental</a></span>
+                                        <span><a href="#"><i class="far fa-comments"></i>05 Comment</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- blog area end -->
+        </main>
+
+        <!-- footer area start -->
+        <footer>
+            <div class="footer__area pt-130 footer-bg box-105">
+                <div class="container-fluid">
+                    <div class="footer__bottom pb-50">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-6 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-30">
+                                        <div class="logo">
+                                            <a href="index.html"><img src="{% static 'frontpanel/assets/img/logo/logo.png' %}" alt="logo"></a>
+                                        </div>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__logo-area">
+                                            <p>Waters divided said aims kind seicond winged form it tree after female the deep at itself creepeth land bring place day sea dont caus may thing open who their midst to seas</p>
+        
+                                            <div class="social">
+                                                <h4>Follow us</h4>
+                                                <ul>
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-6 col-md-6 offset-xl-1 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-25">
+                                        <h2>Services</h2>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__services">
+                                            <ul>
+                                                <li><a href="services-details.html">Business Frustation</a></li>
+                                                <li><a href="services-details.html">Anxiety Dosorder</a></li>
+                                                <li><a href="services-details.html">Personal Meeting</a></li>
+                                                <li><a href="services-details.html">Couple Therapy</a></li>
+                                                <li><a href="services-details.html">Family Counselling</a></li>
+                                                <li><a href="services-details.html">Dating & Relation</a></li>
+                                                <li><a href="services-details.html">Depression Problem</a></li>
+                                                <li><a href="services-details.html">Mental Problem</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-6 col-md-6 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-25">
+                                        <h2>Contact Info</h2>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__contact-info">
+                                            <ul>
+                                                <li>
+                                                    <div class="footer__contact-address">
+                                                        <span>House no 35, Palmall street, London, England</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="footer__contact-item">
+                                                        <h6>Email:</h6>
+                                                        <p>info@basictheme.com</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="footer__contact-item">
+                                                        <h6>Support:</h6>
+                                                        <p>+1 325 562 3265</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="footer__contact-item">
+                                                        <h6>Website:</h6>
+                                                        <p>www.basictheme.com</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-6 offset-xl-1 mb-50">
+                                <div class="footer__widget">
+                                    <div class="footer__widget-title mb-25">
+                                        <h2>Stay in Touch</h2>
+                                    </div>
+                                    <div class="footer__widget-content">
+                                        <div class="footer__subscribe">
+                                            <p>Fruitful and herb the seasons of fish saying likeness face beast cattle.</p>
+                                            <div class="footer__subscribe-form footer__subscribe-form-2">
+                                                <form action="#">
+                                                    <input type="email" placeholder="Email Address">
+                                                    <button class="s-btn s-btn__square-2" type="submit"><i class="fal fa-paper-plane"></i> subscribe now</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer__copyright">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="footer__copyright-text">
+                                    <p>Copyright © 2025 <a href="https://themeforest.net/user/theme_pure/portfolio" target="_blank"> ThemePure</a>. All Rights Reserved.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="footer__policy ">
+                                    <a href="#">Terms & Condition</a>
+                                    <a href="#"> Privacy</a>
+                                    <a href="#">Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer area end -->
+
+
+		<!-- JS here -->
+        <script src="{% static 'frontpanel/assets/js/vendor/jquery.js'  %}"></script>
+        <script src="{% static 'frontpanel/assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/waypoint.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/metisMenu.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/slick.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/jquery.fancybox.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/ajax-form.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/imagesloaded.pkgd.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/jquery.counterup.min.js' %}"></script>
+        <script src="{% static 'frontpanel/assets/js/main.js' %}"></script>
+    </body>
+
+<!-- Mirrored from html.storebuild.shop/sycho-prv/sycho/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Mar 2025 11:12:07 GMT -->
+</html> 

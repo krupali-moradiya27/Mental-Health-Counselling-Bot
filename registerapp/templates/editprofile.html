@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% load static %}
+				{% include 'header.html' %}
+				<!--begin::Wrapper-->
+				<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+					{% include 'sidebar.html' %}
+					
+					<!--begin::Main-->
+					<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+						<!--begin::Content wrapper-->
+						<div class="d-flex flex-column flex-column-fluid">
+							<!--begin::Content-->
+							<div id="kt_app_content" class="app-content flex-column-fluid">
+								<!--begin::Content container-->
+								<div id="kt_app_content_container" class="app-container container-xxl">
+									<!--begin::Basic info-->
+									<div class="card mb-5 mb-xl-10">
+									{% if messages %}
+										{% for message in messages %}
+											{% if "changepassword" in message.tags.split %}
+												<div class="alert {% if 'success' in message.tags %}alert-success{% else %}alert-danger{% endif %}">
+													{{ message }}
+												</div>
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+										<!--begin::Card header-->
+										<div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+											<!--begin::Card title-->
+											<div class="card-title m-0">
+												<h3 class="fw-bold m-0">Profile Details</h3>
+											</div>
+											<!--end::Card title-->
+										</div>
+										<!--begin::Card header-->
+										<!--begin::Content-->
+										<div id="kt_account_settings_profile_details" class="collapse show">
+											<!--begin::Form-->
+											<form action="{% url 'editprofilePage' %}" method="POST" enctype="multipart/form-data" class="form">
+                                                {% csrf_token %}
+												<!--begin::Card body-->
+												<div class="card-body border-top p-9">
+													<!--begin::Input group-->
+													<div class="row mb-6">
+														<!--begin::Label-->
+														<label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
+														<!--end::Label-->
+														<!--begin::Col-->
+														<div class="col-lg-8">
+															<!--begin::Image input-->
+															<div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
+																<!--begin::Preview existing avatar-->
+																<div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/300-1.jpg)">
+																{% if user.counsellingchatbot_registration_avatar %}
+																	<img src="{{ user.counsellingchatbot_registration_avatar.url }}" alt="Avatar" width="125" height="125"><br>
+																{% endif %}
+																</div>
+																<!--end::Preview existing avatar-->
+																<!--begin::Label-->
+																<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+																	<i class="bi bi-pencil-fill fs-7"></i>
+																	<!--begin::Inputs-->
+																	<input type="file" name="counsellingchatbot_registration_avatar" accept=".png, .jpg, .jpeg" />
+																	<input type="hidden" name="avatar_remove" />
+																	<!--end::Inputs-->
+																</label>
+																<!--end::Label-->
+																<!--begin::Cancel-->
+																<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+																	<i class="bi bi-x fs-2"></i>
+																</span>
+																<!--end::Cancel-->
+																<!--begin::Remove-->
+																<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+																	<i class="bi bi-x fs-2"></i>
+																</span>
+																<!--end::Remove-->
+															</div>
+															<!--end::Image input-->
+															<!--begin::Hint-->
+															<div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+															<!--end::Hint-->
+														</div>
+														<!--end::Col-->
+													</div>
+													<!--end::Input group-->
+													<!--begin::Input group-->
+													<div class="row mb-6">
+														<!--begin::Label-->
+														<label class="col-lg-4 col-form-label required fw-semibold fs-6">Full name</label>
+														<!--end::Label-->
+														<!--begin::Col-->
+														<div class="col-lg-8 fv-row">
+															<input type="text" name="counsellingchatbot_registration_name" class="form-control form-control-lg form-control-solid" placeholder="Full name" value="{{ user.counsellingchatbot_registration_name }}" required>
+														</div>
+														<!--end::Col-->
+													</div>
+													<!--end::Input group-->
+													<!--begin::Input group-->
+													<div class="row mb-6">
+														<!--begin::Label-->
+														<label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
+														<!--end::Label-->
+														<!--begin::Col-->
+														<div class="col-lg-8 fv-row">
+															<input type="text" name="counsellingchatbot_registration_email" class="form-control form-control-lg form-control-solid" placeholder="Email" value="{{ user.counsellingchatbot_registration_email }}" readonly required />
+														</div>
+														<!--end::Col-->
+													</div>
+													<!--end::Input group-->
+													<!--begin::Input group-->
+													<div class="row mb-6">
+														<!--begin::Label-->
+														<label class="col-lg-4 col-form-label fw-semibold fs-6">
+															<span class="required">Contact Phone</span>
+															<i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i>
+														</label>
+														<!--end::Label-->
+														<!--begin::Col-->
+														<div class="col-lg-8 fv-row">
+															<input type="tel" name="counsellingchatbot_registration_contact_phone" 
+															class="form-control form-control-lg form-control-solid" 
+															placeholder="Phone number" 
+															value="{{ user.counsellingchatbot_registration_contact_phone|default:'' }}" required />														
+														</div>
+														<!--end::Col-->
+													</div>
+													<!--end::Input group-->
+													<!--begin::Input group-->
+													<div class="row mb-6">
+														<label class="col-lg-4 col-form-label required fw-semibold fs-6">Language</label>
+														<div class="col-lg-8 fv-row">
+															<select name="counsellingchatbot_registration_language" class="form-select form-select-solid form-select-lg">
+																<option value="">Select a Language...</option>
+																<option value="hi" {% if user.counsellingchatbot_registration_language == "hi" %} selected {% endif %}>हिन्दी - Hindi</option>
+																<option value="en" {% if user.counsellingchatbot_registration_language == "en" %} selected {% endif %}>English - English</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<!--end::Card body-->
+												<!--begin::Actions-->
+												<div class="card-footer d-flex justify-content-end py-6 px-9">
+													<button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+													<button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+												</div>
+												<!--end::Actions-->
+											</form>
+											<!--end::Form-->
+										</div>
+										<!--end::Content-->
+									</div>
+									<!--end::Basic info-->
+
+
+
+									<!--begin::Sign-in Method-->
+									<div class="card mb-5 mb-xl-10">
+										<!--begin::Card header-->
+										<div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_signin_method">
+											<div class="card-title m-0">
+												<h3 class="fw-bold m-0">Sign-in Method</h3>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Content-->
+										<div id="kt_account_settings_signin_method" class="collapse show">
+											<!--begin::Card body-->
+											<div class="card-body border-top p-9">
+												<!--begin::Email Address-->
+												<div class="d-flex flex-wrap align-items-center">
+													<!--begin::Label-->
+													<div id="kt_signin_email">
+														<div class="fs-6 fw-bold mb-1">Email Address</div>
+														<div class="fw-semibold text-gray-600">support@keenthemes.com</div>
+													</div>
+													<!--end::Label-->
+													<!--begin::Edit-->
+													<div id="kt_signin_email_edit" class="flex-row-fluid d-none">
+														<!--begin::Form-->
+														<form id="kt_signin_change_email" class="form" novalidate="novalidate">
+															<div class="row mb-6">
+																<div class="col-lg-6 mb-4 mb-lg-0">
+																	<div class="fv-row mb-0">
+																		<label for="emailaddress" class="form-label fs-6 fw-bold mb-3">Enter New Email Address</label>
+																		<input type="email" class="form-control form-control-lg form-control-solid" id="emailaddress" placeholder="Email Address" name="emailaddress" value="{{ user.counsellingchatbot_registration_email }}" />
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="fv-row mb-0">
+																		<label for="confirmemailpassword" class="form-label fs-6 fw-bold mb-3">Confirm Password</label>
+																		<input type="password" class="form-control form-control-lg form-control-solid" name="confirmemailpassword" id="confirmemailpassword" />
+																	</div>
+																</div>
+															</div>
+
+															<div class="d-flex">
+																<button id="kt_signin_submit" type="button" class="btn btn-primary me-2 px-6">Update Email</button>
+																<button id="kt_signin_cancel" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancel</button>
+															</div>
+														</form>
+														<!--end::Form-->
+													</div>
+													<!--end::Edit-->
+													<!--begin::Action-->
+													<div id="kt_signin_email_button" class="ms-auto">
+														<button class="btn btn-light btn-active-light-primary">Change Email</button>
+													</div>
+													<!--end::Action-->
+												</div>
+												<!--end::Email Address-->
+												<!--begin::Separator-->
+												<div class="separator separator-dashed my-6"></div>
+												<!--end::Separator-->
+												<!--begin::Password-->
+												<div class="d-flex flex-wrap align-items-center mb-10">
+													<!--begin::Label-->
+													<div id="kt_signin_password">
+														<div class="fs-6 fw-bold mb-1">Password</div>
+														<div class="fw-semibold text-gray-600">************</div>
+													</div>
+													<!--end::Label-->
+													<!--begin::Edit-->
+													<div id="kt_signin_password_edit" class="flex-row-fluid d-none">
+														<!--begin::Form-->
+														<form method="POST" action="{% url 'changepasswordPage' %}" onsubmit="return validatePasswords()">
+															{% csrf_token %}
+															<div class="row mb-1">
+																<div class="col-lg-4">
+																	<label for="currentpassword" class="form-label mb-3">Current Password</label><br>
+																	<input type="password" class="form-control" name="counsellingchatbot_registration_currentpassword" id="currentpassword" placeholder="Current Password" required>
+																</div>
+																<div class="col-lg-4">
+																	<label for="newpassword" class="form-label mb-3">New Password</label>
+																	<input type="password" class="form-control" name="counsellingchatbot_registration_newpassword" id="newpassword" placeholder="New Password" required>
+																</div>
+																<div class="col-lg-4">
+																	<label for="confirmpassword" class="form-label mb-3">Confirm New Password</label>
+																	<input type="password" class="form-control" name="counsellingchatbot_registration_confirmnewpassword" id="confirmpassword" placeholder="Confirm Password" required>
+																	<small id="passwordError" class="text-danger"></small> <!-- Display error here -->
+																</div>
+															</div>
+															<button type="submit" class="btn btn-primary mt-3">Update Password</button>
+															<button type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6" onclick="window.location.href='{% url 'editprofilePage' %}'">Cancel</button>
+														</form>
+														
+														<script>
+															function validatePasswords() {
+																var newPassword = document.getElementById("newpassword").value;
+																var confirmPassword = document.getElementById("confirmpassword").value;
+																var errorField = document.getElementById("passwordError");
+														
+																if (newPassword !== confirmPassword) {
+																	errorField.innerText = "New passwords do not match!";
+																	return false;  // Prevent form submission
+																}
+														
+																errorField.innerText = "";  // Clear error message
+																return true;  // Allow form submission
+															}
+														</script>
+																											
+														<!--end::Form-->
+													</div>
+													<!--end::Edit-->
+													<!--begin::Action-->
+													<div id="kt_signin_password_button" class="ms-auto">
+														<button class="btn btn-light btn-active-light-primary">Reset Password</button>
+													</div>
+													<!--end::Action-->
+												</div>
+												<!--end::Password-->
+												<!--begin::Notice-->
+												<div class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
+													<!--begin::Icon-->
+													<!--begin::Svg Icon | path: icons/duotune/general/gen048.svg-->
+													<span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="currentColor" />
+															<path d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z" fill="currentColor" />
+														</svg>
+													</span>
+													<!--end::Svg Icon-->
+													<!--end::Icon-->
+													<!--begin::Wrapper-->
+													<div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+														<!--begin::Content-->
+														<div class="mb-3 mb-md-0 fw-semibold">
+															<h4 class="text-gray-900 fw-bold">Secure Your Account</h4>
+															<div class="fs-6 text-gray-700 pe-7">Two-factor authentication adds an extra layer of security to your account. To log in, in addition you'll need to provide a 6 digit code</div>
+														</div>
+														<!--end::Content-->
+														<!--begin::Action-->
+														<a href="#" class="btn btn-primary px-6 align-self-center text-nowrap" data-bs-toggle="modal" data-bs-target="#kt_modal_two_factor_authentication">Enable</a>
+														<!--end::Action-->
+													</div>
+													<!--end::Wrapper-->
+												</div>
+												<!--end::Notice-->
+											</div>
+											<!--end::Card body-->
+										</div>
+										<!--end::Content-->
+									</div>
+									<!--end::Sign-in Method-->
+
+
+									<!--Begin Health Info-->
+										<!--begin::Other info-->
+										<div class="card mb-5 mb-xl-10">
+											<!--begin::Card header-->
+											<div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_other_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+												<!--begin::Card title-->
+												<div class="card-title m-0">
+													<h3 class="fw-bold m-0">Other Details</h3>
+												</div>
+												<!--end::Card title-->
+											</div>
+											<!--begin::Card header-->
+											<!--begin::Content-->
+											<div id="kt_account_settings_profile_details" class="collapse show">
+												<!--begin::Form-->
+												<form action="{% url 'healthprofilePage' %}" method="POST" id="kt_other_details" class="form">
+													{% csrf_token %}
+													<!--begin::Card body-->
+													<div class="card-body border-top p-9">
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Average Sleep Hours</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="number" name="counsellingchatbot_health_sleep_hours" min="0" max="24" class="form-control form-control-lg form-control-solid" placeholder="e.g., 7" 
+																value="{{ health_profile.counsellingchatbot_health_sleep_hours|default:'0' }}" />
+    														</div>
+														</div>
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Trouble Falling Asleep?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_sleep_trouble" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_sleep_trouble }}">
+																	<option value="">Select..</option>
+																	 <option value="No" {% if health_profile.counsellingchatbot_health_sleep_trouble == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_sleep_trouble == "Yes" %}selected{% endif %}>Yes</option>
+    																<option value="Sometimes" {% if health_profile.counsellingchatbot_health_sleep_trouble == "Sometimes" %}selected{% endif %}>Sometimes</option>															 
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Feel Isolated?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_isolated" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_isolated }}">
+																	<option value="">Select..</option>
+																	 <option value="No" {% if health_profile.counsellingchatbot_health_isolated == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_isolated == "Yes" %}selected{% endif %}>Yes</option>
+    																<option value="Sometimes" {% if health_profile.counsellingchatbot_health_isolated == "Sometimes" %}selected{% endif %}>Sometimes</option>															
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Support System Available?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_support_system" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_support_system }}">
+																	<option value="">Select..</option>
+																	 <option value="No" {% if health_profile.counsellingchatbot_health_support_system == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_support_system == "Yes" %}selected{% endif %}>Yes</option>
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->														
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Exercise Frequency (per week)</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="text" name="counsellingchatbot_health_exercise_frequency" class="form-control form-control-lg form-control-solid" placeholder="e.g., 3 times" value="{{ health_profile.counsellingchatbot_health_exercise_frequency|default:''  }}" />
+    														</div>
+														</div>
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Negative Thought Frequency</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_negative_thoughts" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg"value="{{ health_profile.counsellingchatbot_health_negative_thoughts }}">
+																	<option value="">Select..</option>
+																	<option value="Rarely" {% if health_profile.counsellingchatbot_health_negative_thoughts == "Rarely" %}selected{% endif %}>Rarely</option>
+    																<option value="Sometimes" {% if health_profile.counsellingchatbot_health_negative_thoughts == "Sometimes" %}selected{% endif %}>Sometimes</option>
+																	<option value="Often" {% if health_profile.counsellingchatbot_health_negative_thoughts == "Often" %}selected{% endif %}>Often</option>										
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->	
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Current Coping Mechanisms</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="text" name="counsellingchatbot_health_coping_mechanisms" class="form-control form-control-lg form-control-solid" placeholder="e.g., Meditation, Hobbies" value="{{health_profile.counsellingchatbot_health_coping_mechanisms|default:'' }}" />
+    														</div>
+														</div>
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Common Negative Thoughts</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="text" name="counsellingchatbot_health_common_negative_thoughts" class="form-control form-control-lg form-control-solid" placeholder="e.g., Self-doubt, Overthinking" value="{{health_profile.counsellingchatbot_health_common_negative_thoughts|default:'' }}"/>
+    														</div>
+														</div>
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Struggle with Focus or Memory?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_cognitive_load" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{health_profile.counsellingchatbot_health_cognitive_load}}">
+																	<option value="">Select..</option>
+																	 <option value="No" {% if health_profile.counsellingchatbot_health_cognitive_load == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_cognitive_load == "Yes" %}selected{% endif %}>Yes</option>
+    																<option value="Sometimes" {% if health_profile.counsellingchatbot_health_cognitive_load == "Sometimes" %}selected{% endif %}>Sometimes</option>											
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->	
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Dietary Habits</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="text" name="counsellingchatbot_health_dietary_habits" class="form-control form-control-lg form-control-solid" placeholder="e.g., Balanced, Skipped Meals" value="{{ health_profile.counsellingchatbot_health_dietary_habits|default:''  }}"/>
+    														</div>
+														</div>
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Stress/Anxiety Triggers</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="text" name="counsellingchatbot_health_triggers" class="form-control form-control-lg form-control-solid" placeholder="e.g., Exams, Workload" value="{{ health_profile.counsellingchatbot_health_triggers|default:''  }}"/>
+    														</div>
+														</div>
+														<div class="row mb-6">
+    														<label class="col-lg-4 col-form-label fw-semibold fs-6">Personal Stressors</label>
+    														<div class="col-lg-8 fv-row">
+        														<input type="text" name="counsellingchatbot_health_stressors" class="form-control form-control-lg form-control-solid" placeholder="e.g., Family, Work" value="{{ health_profile.counsellingchatbot_health_stressors|default:''  }}" />
+    														</div>
+														</div>
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Social Interaction Preference</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_social_pref" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_social_pref }}">
+																	<option value="">Select..</option>
+																	<option value="Introvert" {% if health_profile.counsellingchatbot_health_social_pref == "Introvert" %}selected{% endif %}>Introvert</option>
+    																<option value="Ambivert" {% if health_profile.counsellingchatbot_health_social_pref == "Ambivert" %}selected{% endif %}>Ambivert</option>
+    																<option value="Extrovert" {% if health_profile.counsellingchatbot_health_social_pref == "Extrovert" %}selected{% endif %}>Extrovert<option>							
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Open to Mindfulness?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_mindfulness_interest" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_mindfulness_interest }}">
+																	<option value="">Select..</option>
+																	 <option value="No" {% if health_profile.counsellingchatbot_health_mindfulness_interest == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_mindfulness_interest == "Yes" %}selected{% endif %}>Yes</option>
+    																<option value="Maybe" {% if health_profile.counsellingchatbot_health_mindfulness_interest == "Maybe" %}selected{% endif %}>Maybe</option>											
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->
+														<div class="row mb-6">
+															<label class="col-lg-4 col-form-label fw-semibold fs-6">Mental Health History (Optional)</label>
+															<div class="col-lg-8 fv-row">
+																<input type="text" name="counsellingchatbot_health_mental_history" class="form-control form-control-lg form-control-solid" placeholder="e.g., Anxiety, PTSD" value="{{ health_profile.counsellingchatbot_health_mental_history|default:''  }}" />
+															</div>
+														</div>
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Previous Therapy Experience?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_therapy_experience" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_therapy_experience }}">
+																	<option value="">Select..</option>
+																	<option value="No" {% if health_profile.counsellingchatbot_health_therapy_experience == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_therapy_experience == "Yes" %}selected{% endif %}>Yes</option>		
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="row mb-6">
+															<!--begin::Label-->
+															<label class="col-lg-4 col-form-label required fw-semibold fs-6">Mindfulness/Meditation Experience?</label>
+															<!--end::Label-->
+															<!--begin::Col-->
+															<div class="col-lg-8 fv-row">
+																<!--begin::Input-->
+																<select name="counsellingchatbot_health_meditation_experience" aria-label="select" data-control="select2" data-placeholder="Select.." class="form-select form-select-solid form-select-lg" value="{{ health_profile.counsellingchatbot_health_meditation_experience }}">
+																	<option value="">Select..</option>
+																	<option value="No" {% if health_profile.counsellingchatbot_health_meditation_experience == "No" %}selected{% endif %}>No</option>
+    																<option value="Yes" {% if health_profile.counsellingchatbot_health_meditation_experience == "Yes" %}selected{% endif %}>Yes</option>	
+																</select>
+																<!--end::Input-->
+															</div>
+															<!--end::Col-->
+														</div>
+														<!--end::Input group-->
+														<div class="row mb-6">
+															<label class="col-lg-4 col-form-label fw-semibold fs-6">Energy Level (1-10)</label>
+															<div class="col-lg-8 fv-row">
+																<input type="number" name="counsellingchatbot_health_energy_level" min="1" max="10" class="form-control form-control-lg form-control-solid" placeholder="e.g., 7" value="{{ health_profile.counsellingchatbot_health_energy_level|default:'1'  }}" />
+															</div>
+														</div>
+														<div class="row mb-6">
+															<label class="col-lg-4 col-form-label fw-semibold fs-6">Stress Level (1-10)</label>
+															<div class="col-lg-8 fv-row">
+																<input type="number" name="counsellingchatbot_health_stress_level" min="1" max="10" class="form-control form-control-lg form-control-solid" placeholder="e.g., 5" value="{{ health_profile.counsellingchatbot_health_stress_level|default:'1'  }}" />
+															</div>
+														</div>
+														<div class="row mb-6">
+															<label class="col-lg-4 col-form-label fw-semibold fs-6">Conversation with Doctor</label>
+															<div class="col-lg-8 fv-row">
+																<textarea name="counsellingchatbot_health_doctor_conversation" class="form-control form-control-lg form-control-solid" rows="3" placeholder="Write here..." value="{{ health_profile.counsellingchatbot_health_doctor_conversation|default:''  }}<"></textarea>
+															</div>
+														</div>
+														<!--end::Input group-->												
+													</div>
+													<!--end::Card body-->
+													<!--begin::Actions-->
+													<div class="card-footer d-flex justify-content-end py-6 px-9">
+														<button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+														<button type="submit"  class="btn btn-primary">Save </button>
+													</div>
+													<!--end::Actions-->
+												</form>
+												<!--end::Form-->
+											</div>
+											<!--end::Content-->
+										</div>
+										<!--end::Basic info-->
+									<!--End Health Info-->
+							</div>
+							<!--end::Content-->
+							<!-- <div class="card-footer d-flex justify-content-end py-5 px-7">
+								<a href="{% url 'logoutPage' %}" class="btn btn-primary mt-3">Logout</a>
+							</div> -->
+						</div>
+						<!--end::Content wrapper-->
+					</div>
+					<!--end:::Main-->
+				</div>
+				<!--end::Wrapper-->
+			</div>
+			<!--end::Page-->
+		</div>
+		<!--end::App-->
+		
+	</body>
+	<!--end::Body-->
+</html>

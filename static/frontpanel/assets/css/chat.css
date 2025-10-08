@@ -1,0 +1,188 @@
+/* Sidebar Styling */
+.card-message {
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#kt_chat_contacts_header h3 {
+	font-size: 18px;
+	font-weight: 600;
+	color: #4B4B4B;
+	background: #f5f5f5;
+	border: none;
+	border-radius: 8px;
+	text-align: center;
+	padding: 12px;
+	margin-bottom: 10px;
+}
+
+#chat-history-container {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.session-item {
+	text-align: left;
+	width: 100%;
+	background-color: #f1f1f1;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-weight: 500;
+	color: #333;
+	text-wrap: nowrap;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.session-item:hover {
+	background-color: #dcdcdc;
+}
+
+.session-item.active {
+	background-color: #cfe2ff;
+	color: #084298;
+	font-weight: 600;
+}
+/* Chat Body Styling */
+#kt_chat_messenger_body {
+	max-height: 400px; /* Set max height */
+	overflow-y: auto; /* Enable vertical scrollbar */
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+	
+.session-wrapper {
+    transition: all 0.2s ease;
+    border-radius: 8px;
+}
+
+.session-wrapper.active {
+    background-color: #cfe2ff;
+}
+
+.session-title {
+    font-weight: 500;
+    color: #333;
+}
+
+.btn-icon {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/* User Message Styling (Right Side) */
+.chat-message.user {
+	align-self: flex-end;
+	background-color: #007bff;
+	color: white;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 5px;
+	max-width: 70%;
+}
+	
+/* Bot Response Styling (Left Side) */
+.chat-message.bot {
+	align-self: flex-start;
+	background-color: #f1f1f1;
+	color: black;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 5px;
+	max-width: 70%;
+}
+
+.dot-flashing {
+	position: relative;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: #5A5A5A;
+	animation: dotFlashing 1s infinite linear alternate;
+	animation-delay: 0.3s;
+	margin-left: 12px;
+}
+		
+.dot-flashing::before,
+.dot-flashing::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: #5A5A5A;
+}
+	
+.dot-flashing::before {
+	left: -15px;
+	animation: dotFlashing 1s infinite alternate;
+	animation-delay: 0s;
+}
+	
+.dot-flashing::after {
+	left: 15px;
+	animation: dotFlashing 1s infinite alternate;
+	animation-delay: 0.6s;
+}
+	
+@keyframes dotFlashing {
+	0% { background-color: #5A5A5A;}
+	50%, 100% { background-color: #d3d3d3;}
+}
+
+
+/* css for subscription page */
+body {
+	background: #f0f4f8;
+	font-family: 'Segoe UI', sans-serif;
+}
+
+.subscription-modal {
+	max-width: 700px;
+	margin: 40px auto;
+	background: #fff;
+	border-radius: 15px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+	padding: 30px;
+}
+
+.form-label {
+	font-weight: 600;
+}
+
+.form-control, .form-select {
+	border-radius: 10px;
+}
+
+.form-check-input {
+	width: 50px;
+	height: 25px;
+	margin-top: 5px;
+}
+
+.btn-primary {
+	border-radius: 10px;
+	padding: 10px 30px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.card-logos img {
+	height: 30px;
+	margin-right: 5px;
+}
+
+.form-section-title {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: #3f4254;
+}

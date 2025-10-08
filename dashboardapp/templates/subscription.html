@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %} 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'frontpanel/assets/css/chat.css' %}" rel="stylesheet" type="text/css" />
+		{% include 'header.html' %}
+				<!--begin::Wrapper-->
+				<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+					{% include 'sidebar.html' %}
+
+                    <!--begin::Main-->
+					<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+						<!--begin::Content wrapper-->
+						<div class="d-flex flex-column flex-column-fluid">
+							<!--begin::Toolbar-->
+							<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+
+							</div>
+							<!--end::Toolbar-->
+							<!--begin::Content-->
+							<div id="kt_app_content" class="app-content flex-column-fluid">
+								<!--begin::Content container-->
+								<div id="kt_app_content_container" class="app-container container-fluid">
+									{% if messages %}
+    									<div class="container mt-3">
+        									{% for message in messages %}
+           										<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                									{{ message }}
+                									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            									</div>
+       										{% endfor %}
+    									</div>
+									{% endif %}
+                                    <div class="subscription-modal">
+                                        <h2 class="text-center mb-4">Subscribe to a Plan</h2>
+										<form method="POST" action="{% url 'checkoutPage' %}">  
+											{% csrf_token %}                                  
+                                            <!-- Plan Selection -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Select Plan</label>
+                                                <select class="form-select" name="plan" required>
+                                                    <option value="" disabled selected>Select a Plan</option>
+													{% for plan in plans %}
+														<option value="{{ plan.id }}">
+															{{ plan.counselling_chatbot_plan_plan_name|title }} - ₹{{ plan.counselling_chatbot_plan_price }}/ {{ plan.counselling_chatbot_plan_token }} tokens
+														</option>
+													{% endfor %}
+                                                </select>
+                                            </div>                                    
+                                            {% comment %} <!-- Card Holder Name -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Cardholder Name</label>
+                                                <input type="text" class="form-control" name="card_name" placeholder="Enter name on card" required>
+                                            </div>
+                                    
+                                            <!-- Card Number -->
+                                            <div class="mb-3 position-relative">
+                                                <label class="form-label">Card Number</label>
+                                                <input type="text" class="form-control" name="card_number" placeholder="1234 5678 9012 3456" required>
+                                                <div class="position-absolute end-0 me-3 card-logos" style="top: 70%; transform: translateY(-50%);">
+                                                    <img src="https://img.icons8.com/color/48/000000/visa.png" />
+                                                    <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                                                </div>                                                
+                                            </div>
+                                    
+                                            <!-- Expiration and CVV -->
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Expiration Date</label>
+                                                    <div class="d-flex">
+                                                        <select class="form-select me-2" name="exp_month" required>
+                                                            <option value="" disabled selected>MM</option>
+                                                            <option>01</option><option>02</option><option>03</option><option>04</option>
+                                                            <option>05</option><option>06</option><option>07</option><option>08</option>
+                                                            <option>09</option><option>10</option><option>11</option><option>12</option>
+                                                        </select>
+                                                        <select class="form-select" name="exp_year" required>
+                                                            <option value="" disabled selected>YY</option>
+                                                            <option>2025</option><option>2026</option><option>2027</option>
+                                                            <option>2028</option><option>2029</option><option>2030</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">CVV</label>
+                                                    <input type="password" class="form-control" name="cvv" placeholder="123" minlength="3" maxlength="4" required>
+                                                </div>
+                                            </div>
+                                            <!-- Submit --> {% endcomment %}
+                                            <div class="text-center mt-4">
+                                                <button type="submit" class="btn btn-primary">Subscribe Now</button>
+												<a href="{% url 'showreceiptPage' %}" class="btn btn-primary">View Receipt</a>
+                                            </div>
+                                        </form>
+                                    </div>
+								</div>
+								<!--end::Content container-->
+							</div>
+							<!--end::Content-->
+						</div>
+						<!--end::Content wrapper-->
+					</div>
+					<!--end:::Main-->
+
+				</div>
+				<!--end::Wrapper-->
+			</div>
+			<!--end::Page-->
+		</div>
+		<!--end::App-->
+
+		<!--begin::Javascript-->
+		<script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="{% static 'frontpanel/assets/plugins/global/plugins.bundle.js' %}"></script>
+    	<script src="{% static 'frontpanel/assets/js/scripts.bundle.js' %}"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Vendors Javascript(used for this page only)-->
+		<script src="{% static 'frontpanel/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
+		<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+		<script src="{% static 'frontpanel/assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+		<!--end::Vendors Javascript-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="{% static 'frontpanel/assets/js/widgets.bundle.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/widgets.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/apps/chat/chat.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/upgrade-plan.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/create-app.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/new-target.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/users-search.js' %}"></script>
+		<!--end::Custom Javascript-->
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
+</html>
+                    

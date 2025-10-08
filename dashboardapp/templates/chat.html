@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %} 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="{% static 'frontpanel/assets/css/chat.css' %}">
+		{% include 'header.html' %}
+				<!--begin::Wrapper-->
+				<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+					{% include 'sidebar.html' %}
+					<!--begin::Main-->
+					<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+						<!--begin::Content wrapper-->
+						<div class="d-flex flex-column flex-column-fluid">
+							<!--begin::Content-->
+							<div id="kt_app_content" class="app-content flex-column-fluid">
+								<!--begin::Content container-->
+								<div id="kt_app_content_container" class="app-container container-xxl">
+									
+									<!--begin::Layout-->
+									<div class="d-flex flex-column flex-lg-row">
+										<!-- Sidebar -->
+										<!--begin::Sidebar-->
+										<div class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-400px mb-10 mb-lg-0">
+											<!--begin::Contacts-->
+											<div class="card-message">
+												<!--begin::Card header-->
+												<div class="card-header pt-7" id="kt_chat_contacts_header">
+													<!--begin::Form-->
+													<form class="w-100 position-relative" autocomplete="off">												
+														<h3 class="form-control form-control-solid px-15">History</h3>
+													</form>
+													<!--end::Form-->
+												</div>
+												<!--end::Card header-->
+												<!--begin::Card body-->
+												<div class="card-body pt-5" id="kt_chat_contacts_body">
+													<div class="sidebar">
+														<button onclick="startNewSession()" class="btn btn-primary w-100 mb-4">
+															🆕 New Chat
+														</button>
+														<!-- History container -->
+														<div id="chat-history-container" class="d-flex flex-column gap-2">
+															<!-- Chat sessions will be added here dynamically -->
+														</div>
+													</div>
+												</div>
+												<!--end::Card body-->
+											</div>
+											<!--end::Contacts-->
+										</div>
+										<!--end::Sidebar-->
+
+										<!--begin::Content-->
+										<div class="flex-lg-row-fluid ms-lg-7 ms-xl-10">
+											<!--begin::Messenger-->
+											<div class="card-message" id="kt_chat_messenger">
+												<!--begin::Card header-->
+												<div class="card-header" id="kt_chat_messenger_header">
+													<!--begin::Title-->
+													<div class="card-title">
+														<!--begin::User-->
+														<div class="d-flex justify-content-center flex-column me-3">
+															<a href="#" class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">Chat Bot</a>
+															<!--begin::Info-->
+															<div class="mb-0 lh-1">
+																<span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
+																<span class="fs-7 fw-semibold text-muted">Active</span>
+															</div>
+															<!--end::Info-->
+														</div>
+														<!--end::User-->
+													</div>
+													<!--end::Title-->
+												</div>
+												<!--end::Card header-->
+												<!--begin::Card body-->
+												<div class="card-body" id="kt_chat_messenger_body">
+													<!-- Messages will be added here dynamically -->
+												</div>
+												<!-- Typing indicator -->
+												<div id="typing-indicator" style="display: none; margin: 10px;">
+    												<div class="dot-flashing"></div>
+												</div>
+												<!--end::Card body-->
+												
+												<!--begin::Card footer-->
+												<div class="card-footer pt-4" id="kt_chat_messenger_footer">
+													<!--begin::Form-->
+													<form id="chat-form">
+														<!--begin::Input-->
+														<textarea class="form-control form-control-flush mb-3" rows="1" placeholder="Type a message" id="user-query"></textarea>														<!--end::Input-->
+														<!--begin:Toolbar-->
+														<div class="d-flex flex-stack">
+															<!--begin::Actions-->
+															<div class="d-flex align-items-center me-2">
+																<!-- Tokens Info Section -->
+																<div id="token-info" class="text-muted small mt-2">
+																	<span><strong>Remaining Tokens:</strong> <span id="token-count">{{ remaining_token }}</span></span> <br>
+																	<span><strong>Remaining Words:</strong> <span id="word-token-count">{{ remaining_word_token }}</span></span><br>
+																	<span><strong>Plan:</strong> <span id="user-plan">{{ plan_name }}</span></span>
+																</div>
+																<!-- Message Alert -->
+																<div id="chat-alert" class="alert d-none" role="alert"></div>
+															</div>
+															<!--end::Actions-->
+  															<!--begin::Send-->
+															<button class="btn btn-light" type="button" id="micButton" title="Speak">
+															<i class="fa fa-microphone"></i>
+  															</button>
+  															<button class="btn btn-primary" type="button" id="sendMessage">Send</button>
+  															<!--end::Send-->
+														</div>
+														<!--end::Toolbar-->
+													</form>
+													<!--end::Form-->
+												</div>
+												<!--end::Card footer-->
+
+											</div>
+											<!--end::Messenger-->
+										</div>
+										<!--end::Content-->
+									</div>
+									<!--end::Layout-->
+								</div>
+								<!--end::Content container-->
+							</div>
+							<!--end::Content-->
+						</div>
+						<!--end::Content wrapper-->
+					</div>
+					<!--end:::Main-->
+				</div>
+				<!--end::Wrapper-->
+			</div>
+			<!--end::Page-->
+		</div>
+		<!--end::App-->
+		
+		<script>
+			let currentSessionId = null;
+		
+			function startNewSession() {
+				fetch('/dashboard/new-session/')
+					.then(res => res.json())
+					.then(data => {
+						currentSessionId = data.session_id;
+						document.getElementById('kt_chat_messenger_body').innerHTML = '';
+						loadSessions();
+					});
+			}
+		
+			function loadSessions() {
+				fetch('/dashboard/sessions/')
+					.then(res => res.json())
+					.then(data => {
+						const container = document.getElementById('chat-history-container');
+						container.innerHTML = '';
+		
+						data.sessions.forEach((session, index) => {
+							const wrapper = document.createElement("div");
+							wrapper.className = "session-wrapper d-flex justify-content-between align-items-center px-2 py-1 bg-light rounded";
+							if (session.session_id === currentSessionId) wrapper.classList.add("active");
+		
+							const titleEl = document.createElement("div");
+							titleEl.className = "session-title flex-grow-1 text-truncate pe-2";
+							titleEl.innerText = session.title || `Chat ${index + 1}`;
+							titleEl.style.cursor = "pointer";
+							titleEl.onclick = () => {
+								document.querySelectorAll('.session-wrapper').forEach(div => div.classList.remove('active'));
+								wrapper.classList.add('active');
+								currentSessionId = session.session_id;
+								loadChatHistory(session.session_id);
+							};
+		
+							const btnGroup = document.createElement("div");
+		
+							const renameBtn = document.createElement("button");
+							renameBtn.className = "btn btn-icon btn-light btn-sm me-1";
+							renameBtn.innerHTML = "✏️";
+							renameBtn.title = "Rename";
+							renameBtn.onclick = (e) => {
+								e.stopPropagation();
+								const newTitle = prompt("Enter new chat title:", session.title);
+								if (newTitle && newTitle.trim()) {
+									fetch(`/dashboard/rename-session/${session.session_id}/`, {
+										method: "POST",
+										headers: { "Content-Type": "application/json" },
+										body: JSON.stringify({ title: newTitle })
+									}).then(() => {
+										titleEl.innerText = newTitle;
+									});
+								}
+							};
+		
+							const deleteBtn = document.createElement("button");
+							deleteBtn.className = "btn btn-icon btn-light btn-sm";
+							deleteBtn.innerHTML = "🗑️";
+							deleteBtn.title = "Delete";
+							deleteBtn.onclick = (e) => {
+								e.stopPropagation();
+								if (confirm("Are you sure you want to delete this chat?")) {
+									fetch(`/dashboard/delete-session/${session.session_id}/`, {
+										method: "DELETE"
+									}).then(() => wrapper.remove());
+								}
+							};
+		
+							btnGroup.appendChild(renameBtn);
+							btnGroup.appendChild(deleteBtn);
+		
+							wrapper.appendChild(titleEl);
+							wrapper.appendChild(btnGroup);
+							container.appendChild(wrapper);
+						});
+					});
+			}
+		
+			function loadChatHistory(sessionId) {
+				fetch(`/dashboard/chat-history/${sessionId}/`)
+					.then(res => res.json())
+					.then(data => {
+						const chatBody = document.getElementById('kt_chat_messenger_body');
+						chatBody.innerHTML = '';
+						data.chats.forEach(chat => {
+							const userMsg = document.createElement("div");
+							userMsg.classList.add("chat-message", "user");
+							userMsg.innerText = chat.user_message;
+							chatBody.appendChild(userMsg);
+		
+							const botMsg = document.createElement("div");
+							botMsg.classList.add("chat-message", "bot");
+							botMsg.innerText = chat.bot_response;
+							chatBody.appendChild(botMsg);
+						});
+						chatBody.scrollTop = chatBody.scrollHeight;
+					});
+			}
+		
+			function showAlert(message, type = "danger") {
+				const alertBox = document.getElementById("chat-alert");
+				alertBox.className = `alert alert-${type}`;
+				alertBox.textContent = message;
+				alertBox.classList.remove("d-none");
+				setTimeout(() => alertBox.classList.add("d-none"), 10000);
+			}
+		
+			document.addEventListener("DOMContentLoaded", () => {
+				const queryInput = document.getElementById('user-query');
+				const sendButton = document.getElementById('sendMessage');
+				const typingIndicator = document.getElementById("typing-indicator");
+				const chatBody = document.getElementById('kt_chat_messenger_body');
+		
+				function sendQuery() {
+					const query = queryInput.value.trim();
+					if (!query || !currentSessionId) return;
+		
+					const userMessage = document.createElement("div");
+					userMessage.classList.add("chat-message", "user");
+					userMessage.innerText = query;
+					chatBody.appendChild(userMessage);
+					chatBody.scrollTop = chatBody.scrollHeight;
+		
+					queryInput.value = "";
+					typingIndicator.style.display = "block";
+		
+					fetch("/dashboard/chat-response/", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ query, session_id: currentSessionId })
+					})
+						.then(res => res.json())
+						.then(data => {
+							typingIndicator.style.display = "none";
+		
+							if (data.error) {
+								showAlert(data.error, "danger");
+								return;
+							}
+		
+							const botMessage = document.createElement("div");
+							botMessage.classList.add("chat-message", "bot");
+							botMessage.innerText = data.response;
+							chatBody.appendChild(botMessage);
+							chatBody.scrollTop = chatBody.scrollHeight;
+
+							// Add this:
+							speakText(data.response);
+		
+							document.getElementById("token-count").textContent = data.remaining_token;
+							document.getElementById("word-token-count").textContent = data.remaining_word_token;
+						})
+						.catch(error => {
+							typingIndicator.style.display = "none";
+							showAlert("Something went wrong. Please try again.", "danger");
+							console.error("Chatbot Error:", error);
+						});
+				}
+		
+				sendButton.addEventListener('click', sendQuery);
+				queryInput.addEventListener('keypress', function (e) {
+					if (e.key === 'Enter' && !e.shiftKey) {
+						e.preventDefault();
+						sendQuery();
+					}
+				});
+		
+				// Initial load of existing sessions only
+				loadSessions();
+
+				// For Voice chat
+				const micButton = document.getElementById('micButton');
+				const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+				const recognition = new SpeechRecognition();
+				
+				recognition.lang = 'en-US'; // or 'hi-IN' for Hindi
+				recognition.interimResults = false;
+				recognition.maxAlternatives = 1;
+				
+				micButton.addEventListener('click', () => {
+					try {
+						recognition.start();
+						micButton.disabled = true;
+						micButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+					} catch (err) {
+						console.error('Mic Error:', err);
+					}
+				});
+				
+				recognition.onresult = (event) => {
+					const transcript = event.results[0][0].transcript;
+					console.log("Heard:", transcript);
+					queryInput.value = transcript;
+					micButton.disabled = false;
+					micButton.innerHTML = '<i class="fa fa-microphone"></i>';
+				};
+				
+				recognition.onend = () => {
+					micButton.disabled = false;
+					micButton.innerHTML = '<i class="fa fa-microphone"></i>';
+				};
+				
+				recognition.onerror = (event) => {
+					console.error('Speech recognition error:', event.error);
+					showAlert('Microphone error: ' + event.error, 'danger');
+					micButton.disabled = false;
+					micButton.innerHTML = '<i class="fa fa-microphone"></i>';
+				};				
+			});
+			function speakText(text, lang = 'en-US') {
+				const synth = window.speechSynthesis;
+				if (!synth) return;
+			
+				const utter = new SpeechSynthesisUtterance(text);
+				utter.lang = lang;
+				utter.rate = 1;
+				utter.pitch = 1;
+				synth.speak(utter);
+			}
+		</script>
+				
+		<!--begin::Javascript-->
+		<script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		{% comment %} <script src="{% static 'js/chat.js' %}"></script> {% endcomment %}
+		<script src="{% static 'frontpanel/assets/plugins/global/plugins.bundle.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/scripts.bundle.js' %}"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Vendors Javascript(used for this page only)-->
+		<script src="{% static 'frontpanel/assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+		<!--end::Vendors Javascript-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="{% static 'frontpanel/assets/js/widgets.bundle.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/widgets.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/apps/chat/chat.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/upgrade-plan.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/create-app.js' %}"></script>
+		<script src="{% static 'frontpanel/assets/js/custom/utilities/modals/users-search.js' %}"></script>
+		<!--end::Custom Javascript-->
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
+</html>

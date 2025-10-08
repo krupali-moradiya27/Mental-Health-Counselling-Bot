@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontpanel/assets/img/favicon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'frontpanel/assets/css/bundle0ae1.css' %}">
+    <link rel="stylesheet" href="{% static 'frontpanel/assets/css/app0ae1.css' %}">
+</head>
+
+<body class="tyn-body">
+    <div class="tyn-root">
+        <div class="tyn-content tyn-auth tyn-auth-centered">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-4 col-lg-5 col-md-7 col-sm-9">
+                        <div class="my-3 text-center">
+                            <a class="tyn-logo tyn-logo-sm" href="{% url 'homePage' %}"><img src="{% static 'frontpanel/assets/img/logo/logo.png' %}" alt="logo"></a>
+                        </div>
+                        <div class="card border-0">
+                            <div class="p-4">
+                                <h3>Login</h3>
+                                <form action="{% url 'loginPage' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="email-address">Email Address</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="email" name="counsellingchatbot_registration_email" class="form-control" id="email-address" placeholder="youremail@example.com" required>
+                                                </div>
+                                            </div>
+                                        </div><!-- .col -->
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label d-flex" for="password">Password 
+                                                    <a href="#" class="link link-primary ms-auto">Forgot?</a>
+                                                </label>
+                                                <div class="form-control-wrap">
+                                                    <input type="password" name="counsellingchatbot_registration_password" class="form-control" id="password" placeholder="password" required>
+                                                </div>
+                                            </div>
+                                        </div><!-- .col -->
+                                        {% if error %}
+                                        <p style="color: red; font-weight: bold;">
+                                            {{ error }}
+                                        </p>
+                                        {% endif %}                                 
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary w-100">Account Login</button>
+                                        </div><!-- .col -->
+                                    </div><!-- .row -->
+                                </form>
+                            </div><!-- .p-4 -->
+                        </div><!-- .card -->
+                        <div class="text-center mt-4">
+                            <p class="small">Don't have an account? <a href="{% url 'registerPage' %}">Register</a></p>
+                        </div>
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .tyn-content -->
+    </div><!-- .tyn-root -->
+    <script src="{% static 'frontpanel/assets/js/bundle0ae1.js' %}"></script>
+    <script src="{% static 'frontpanel/assets/js/app0ae1.js' %}"></script>
+</body>
+
+</html>

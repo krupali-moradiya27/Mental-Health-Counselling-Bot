@@ -1,0 +1,49 @@
+<!-- receipt.html -->
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %} 
+<head>
+    <meta charset="UTF-8">
+    <title>Subscription Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+        .receipt-container {
+            max-width: 500px;
+            margin: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #2e86de;
+        }
+        .info {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <h2>🧾 Subscription Receipt</h2>
+        <div class="info"><span class="label">User:</span> {{ user.counsellingchatbot_registration_name }}</div>
+        <div class="info"><span class="label">Plan:</span> {{ plan_name }}</div>
+        <div class="info"><span class="label">Price:</span> ₹{{ price }}</div>
+        <div class="info"><span class="label">Subscribed On:</span> {{ subscribed_on|date:"d M Y, H:i" }}</div>
+        <div class="info"><span class="label">Remaining Tokens:</span> {{ remaining_token }}</div>
+        <div class="info"><span class="label">Remaining Word Tokens:</span> {{ remaining_word_token }}</div>
+        <div class="info"><span class="label">Status:</span> {{ status }}</div>
+        <br>
+        <div style="text-align: center;">
+            <a href="{% url 'chatPage' %}" class="btn btn-primary">Go to Chat</a>
+        </div>
+    </div>
+</body>
+</html>
