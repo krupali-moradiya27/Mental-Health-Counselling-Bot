@@ -48,7 +48,6 @@ jobs:
 
           docker build -t mentalhealthbot-django-new .
 
-
           docker run -d -p 8004:8000 --name mentalhealthbot-django-new \
             -v /root/mentalhealthbot-django-new/staticfiles:/app/staticfiles \
             -e DB_USER="$DB_USER" \
