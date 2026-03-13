@@ -6,6 +6,9 @@ from . import views
 
 urlpatterns = [
         path('', views.registerFun, name="registerPage"),
+        path('verify-email/', views.verifyEmailFun, name='emailVerificationPage'),
+        path('verify-email/submit/',views.verifyOtpFun,name='verifyOtpPage'),
+        path('verify-email/resend/', views.resendVerificationCode, name='resendVerificationCode'),
         path('login/', views.loginFun, name='loginPage'),
         path('editprofile', views.editProfileFun, name='editprofilePage'),
         path('profile', views.profileFun, name='profilePage'),

@@ -1,34 +1,36 @@
+from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.hashers import check_password, make_password
+from .mail_verification import send_verification_email
 from .forms import RegistrationForm, HealthProfileForm
-from .models import RegistrationModel, HealthProfileModel
+from .models import EmailVerificationModel, RegistrationModel, HealthProfileModel
 from argon2 import PasswordHasher, exceptions as argon2_exceptions
-from argon2.exceptions import VerifyMismatchError
+from argon2.exceptions import Argon2Error, VerifyMismatchError
 ph = PasswordHasher()
 
 def registerFun(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
-        
+
         if form.is_valid():
-            try:
-                # Hash the password before saving it
-                hashed_password = ph.hash(form.cleaned_data['counsellingchatbot_registration_password'])
+            user = form.save(commit=False)
+            user.counsellingchatbot_registration_is_email_verified = False
+            user.save()
 
-                # Save user data with hashed password
-                user = RegistrationModel.objects.create(
-                    counsellingchatbot_registration_name=form.cleaned_data['counsellingchatbot_registration_name'],
-                    counsellingchatbot_registration_email=form.cleaned_data['counsellingchatbot_registration_email'],
-                    counsellingchatbot_registration_password=hashed_password,  # Store hashed password
-                    counsellingchatbot_registration_terms_accepted=form.cleaned_data['counsellingchatbot_registration_terms_accepted']
-                )
-                
-                messages.success(request, "Registration successful! You can now log in.")
-                return redirect('loginPage')
+            # SEND OTP + STORE IN EmailVerificationModel
+            send_verification_email(user)
 
-            except Argon2Error:
-                messages.error(request, "Error hashing password. Please try again.")
-        
+            # STORE USER ID IN SESSION (SAFE)
+            request.session['verify_user_id'] = user.id
+
+            messages.success(
+                request,
+                "Registration successful! Please verify your email."
+            )
+
+            return redirect('emailVerificationPage')
+
         else:
             messages.error(request, "Please correct the errors below.")
 
@@ -37,36 +39,134 @@ def registerFun(request):
 
     return render(request, 'register.html', {'form': form})
 
+def verifyEmailFun(request):
+    user_id = request.session.get('verify_user_id')
+
+    if not user_id:
+        messages.error(request, "Session expired. Please register again.")
+        return redirect('registerPage')
+
+    user = get_object_or_404(RegistrationModel, id=user_id)
+
+    return render(
+        request,
+        'email_verification.html',
+        {
+            'email': user.counsellingchatbot_registration_email
+        }
+    )
+
+def verifyOtpFun(request):
+    if request.method != "POST":
+        return redirect('registerPage')
+
+    otp = request.POST.get('verification_code')
+    user_id = request.session.get('verify_user_id')
+
+    if not otp or not user_id:
+        messages.error(request, "Session expired.")
+        return redirect('registerPage')
+
+    user = get_object_or_404(RegistrationModel, id=user_id)
+
+    try:
+        verification = EmailVerificationModel.objects.filter(
+            counsellingchatbot_emailverification_user=user,
+            counsellingchatbot_emailverification_code=otp,
+            counsellingchatbot_emailverification_is_verified=False
+        ).latest('counsellingchatbot_emailverification_created_at')
+
+    except EmailVerificationModel.DoesNotExist:
+        messages.error(request, "Invalid verification code.")
+        return redirect('emailVerificationPage')
+
+    # CHECK EXPIRY
+    if verification.counsellingchatbot_emailverification_expire_at < timezone.now():
+        messages.error(request, "Verification code expired.")
+        return redirect('emailVerificationPage')
+
+    # MARK VERIFIED
+    verification.counsellingchatbot_emailverification_is_verified = True
+    verification.save()
+
+    user.counsellingchatbot_registration_is_email_verified = True
+    user.save()
+
+    # CLEAR SESSION
+    del request.session['verify_user_id']
+
+    messages.success(request, "Email verified successfully. Please login.")
+    return redirect('loginPage')
+
+def resendVerificationCode(request):
+    user_id = request.session.get('verify_user_id')
+
+    if not user_id:
+        messages.error(request, "Session expired. Please register again.")
+        return redirect('registerPage')
+
+    user = get_object_or_404(RegistrationModel, id=user_id)
+
+    # GET LATEST EMAIL VERIFICATION RECORD
+    verification = (
+        EmailVerificationModel.objects
+        .filter(counsellingchatbot_emailverification_user=user)
+        .order_by('-counsellingchatbot_emailverification_created_at')
+        .first()
+    )
+
+    # Already verified
+    if verification and verification.counsellingchatbot_emailverification_is_verified:
+        messages.info(request, "Email already verified.")
+        return redirect('loginPage')
+
+    # SEND NEW OTP (your existing function should create a new row)
+    send_verification_email(user)
+
+    messages.success(request, "Verification code resent successfully.")
+    return redirect('emailVerificationPage')
+
 def loginFun(request):
     error = None
+
     if request.method == "POST":
         email = request.POST.get('counsellingchatbot_registration_email')
         password = request.POST.get('counsellingchatbot_registration_password')
 
-        if email and password:
-            try:
-                user = RegistrationModel.objects.get(counsellingchatbot_registration_email=email)
-                try:
-                    ph.verify(user.counsellingchatbot_registration_password, password)
-
-                    # Optional rehashing
-                    if ph.check_needs_rehash(user.counsellingchatbot_registration_password):
-                        user.counsellingchatbot_registration_password = ph.hash(password)
-                        user.save()
-
-                    request.session['user_id'] = user.id
-                    messages.success(request, "Login successful!")
-                    return redirect('dashboardPage')  # Change 'dash' to your actual home/dashboard URL name
-                    
-                except argon2_exceptions.VerifyMismatchError:
-                    error = "Invalid email or password"
-                except argon2_exceptions.InvalidHashError:
-                    error = "Stored password hash is invalid. Please reset your password."
-
-            except RegistrationModel.DoesNotExist:
-                error = "Invalid email or password"
-        else:
+        if not email or not password:
             error = "All fields are required"
+            return render(request, 'login.html', {'error': error})
+
+        try:
+            user = RegistrationModel.objects.get(
+                counsellingchatbot_registration_email=email
+            )
+
+            # EMAIL VERIFICATION CHECK (USING EmailVerificationModel)
+            is_verified = EmailVerificationModel.objects.filter(
+                counsellingchatbot_emailverification_user=user,
+                counsellingchatbot_emailverification_is_verified=True
+            ).exists()
+
+            if not is_verified:
+                error = "Please verify your email before logging in."
+                return render(request, 'login.html', {'error': error})
+
+            # PASSWORD CHECK
+            if not check_password(
+                password,
+                user.counsellingchatbot_registration_password
+            ):
+                error = "Invalid email or password"
+                return render(request, 'login.html', {'error': error})
+
+            # LOGIN SUCCESS
+            request.session['user_id'] = user.id
+            messages.success(request, "Login successful!")
+            return redirect('dashboardPage')
+
+        except RegistrationModel.DoesNotExist:
+            error = "Invalid email or password"
 
     return render(request, 'login.html', {'error': error})
 
@@ -157,34 +257,41 @@ def healthprofileFun(request):
     })
 
 def changepasswordFun(request):
+
     if request.method == "POST":
+
         current_password = request.POST.get('counsellingchatbot_registration_currentpassword')
         new_password = request.POST.get('counsellingchatbot_registration_newpassword')
         confirm_password = request.POST.get('counsellingchatbot_registration_confirmnewpassword')
 
-        # ✅ Check if new password and confirm password match
+        # Check if new passwords match
         if new_password != confirm_password:
             messages.error(request, "New passwords do not match.", extra_tags="changepassword")
             return redirect('editprofilePage')
 
         user_id = request.session.get('user_id')
 
-        if user_id:
-            user = get_object_or_404(RegistrationModel, id=user_id)  # Fetch user
+        if not user_id:
+            messages.error(request, "Session expired. Please login again.")
+            return redirect('loginPage')
 
-            # ✅ Verify current password
-            try:
-                ph.verify(user.counsellingchatbot_registration_password, current_password)
+        # Fetch user
+        user = get_object_or_404(RegistrationModel, id=user_id)
 
-                # ✅ If verified, hash and update new password
-                user.counsellingchatbot_registration_password = ph.hash(new_password)
-                user.save()
+        # Verify current password (same as login)
+        if not check_password(current_password, user.counsellingchatbot_registration_password):
+            messages.error(request, "Current password is incorrect.", extra_tags="changepassword")
+            return redirect('editprofilePage')
 
-                messages.success(request, "Password updated successfully.", extra_tags="changepassword")
-                return redirect('editprofilePage')  # Stay on edit profile page
+        # Hash and save new password (same as registration)
+        user.counsellingchatbot_registration_password = make_password(
+            new_password,
+            hasher='argon2'
+        )
+        user.save()
 
-            except VerifyMismatchError:
-                messages.error(request, "Current password is incorrect.", extra_tags="changepassword")
+        messages.success(request, "Password updated successfully.", extra_tags="changepassword")
+        return redirect('editprofilePage')
 
     return render(request, 'editprofile.html')
 

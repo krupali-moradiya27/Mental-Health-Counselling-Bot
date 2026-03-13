@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontpanel/assets/img/favicon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'frontpanel/assets/css/bundle0ae1.css' %}">
+    <link rel="stylesheet" href="{% static 'frontpanel/assets/css/app0ae1.css' %}">
+
+    <style>
+        .otp-box {
+            width: 48px;
+            height: 55px;
+            font-size: 22px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+        .otp-box:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25);
+        }
+    </style>
+</head>
+
+<body class="tyn-body">
+<div class="tyn-root">
+    <div class="tyn-content tyn-auth tyn-auth-centered">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-8">
+
+                    <div class="mb-3 text-center">
+                        <a class="tyn-logo tyn-logo-sm" href="{% url 'homePage' %}">
+                            <img src="{% static 'frontpanel/assets/img/logo/logo.png' %}" alt="logo">
+                        </a>
+                    </div>
+
+                    <div class="card border-0">
+                        <div class="p-4 text-center">
+
+                            <h3 class="mb-2">Verify Your Email</h3>
+
+                            <p class="text-muted">
+                                We’ve sent a 6-digit verification code to <br>
+                                <strong>{{ email }}</strong>
+                            </p>
+
+                            <form method="POST" action="{% url 'verifyOtpPage' %}" onsubmit="combineOtp()">
+                                {% csrf_token %}
+
+                                <!-- Hidden combined OTP -->
+                                <input type="hidden" name="verification_code" id="verification_code">
+
+                                <div class="d-flex justify-content-center gap-2 mt-4">
+                                    <input type="text" maxlength="1" class="otp-box" oninput="moveNext(this, 0)">
+                                    <input type="text" maxlength="1" class="otp-box" oninput="moveNext(this, 1)">
+                                    <input type="text" maxlength="1" class="otp-box" oninput="moveNext(this, 2)">
+                                    <input type="text" maxlength="1" class="otp-box" oninput="moveNext(this, 3)">
+                                    <input type="text" maxlength="1" class="otp-box" oninput="moveNext(this, 4)">
+                                    <input type="text" maxlength="1" class="otp-box" oninput="moveNext(this, 5)">
+                                </div>
+
+                                {% if error %}
+                                    <div class="alert alert-danger mt-3">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+
+                                <button type="submit" class="btn btn-primary w-100 mt-4">
+                                    Verify Email
+                                </button>
+                            </form>
+
+                            <div class="mt-4">
+                                <p class="small">
+                                    Didn’t receive the code?
+                                    <a href="{% url 'resendVerificationCode' %}">Resend</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const inputs = document.querySelectorAll('.otp-box');
+
+    function moveNext(el, index) {
+        if (el.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+        if (el.value === '' && index > 0) {
+            inputs[index - 1].focus();
+        }
+    }
+
+    function combineOtp() {
+        let otp = '';
+        inputs.forEach(input => otp += input.value);
+        document.getElementById('verification_code').value = otp;
+    }
+
+    // Autofocus first box
+    window.onload = () => inputs[0].focus();
+</script>
+
+<script src="{% static 'frontpanel/assets/js/bundle0ae1.js' %}"></script>
+<script src="{% static 'frontpanel/assets/js/app0ae1.js' %}"></script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-import groq
+from groq import Groq
 from .retriever import retrieve_similar
 from langdetect import detect
 from dashboardapp.models import SubscriptionModel
@@ -21,7 +21,7 @@ from django.conf import settings
 # )
 
 # Initialize Groq client
-client = os.getenv("GROQ_API_KEY")
+client = Groq(api_key=settings.GROQ_API_KEY)
 
 def generate_response(user_id, user_query, user_health_data):
     """Generate a short and accurate LLM response based on user's subscription and query language."""
@@ -90,7 +90,7 @@ Retrieved Knowledge:
 
     #Step 8: Generate response using Groq LLM
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",  # Or any other supported model
+        model="llama-3.1-8b-instant",
         messages=[
             {"role": "system", "content": "You are a multilingual mental health counseling assistant."},
             {"role": "user", "content": prompt},

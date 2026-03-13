@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator
@@ -53,3 +54,24 @@ class HealthProfileModel(models.Model):
 
     def __str__(self):
         return f'Health Profile for {self.counsellingchatbot_health_registration}'
+
+class EmailVerificationModel(models.Model):
+    counsellingchatbot_emailverification_user = models.ForeignKey(
+        'RegistrationModel',
+        on_delete=models.CASCADE,
+        related_name='email_verifications'
+    )
+    counsellingchatbot_emailverification_code = models.CharField(max_length=100)
+    counsellingchatbot_emailverification_created_at = models.DateTimeField(default=timezone.now)
+    counsellingchatbot_emailverification_expire_at = models.DateTimeField()
+    counsellingchatbot_emailverification_is_verified = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'counsellingchatbot_emailverification_tb'
+
+    def __str__(self):
+        return f"Email verification for {self.counsellingchatbot_emailverification_user}"
+
+    @staticmethod
+    def get_expiry_time(minutes=30):
+        return timezone.now() + timedelta(minutes=minutes)
